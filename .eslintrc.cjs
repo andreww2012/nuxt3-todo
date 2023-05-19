@@ -15,13 +15,7 @@ module.exports = {
     extraFileExtensions: ['.vue'],
   },
 
-  plugins: [
-    '@typescript-eslint',
-    'optimize-regex',
-    'sonarjs',
-    'unicorn',
-    'require-extensions',
-  ],
+  plugins: ['@typescript-eslint', 'optimize-regex', 'sonarjs', 'unicorn', 'require-extensions'],
 
   extends: [
     'plugin:sonarjs/recommended',
@@ -143,6 +137,7 @@ module.exports = {
       },
     ],
     'import/prefer-default-export': 0,
+    'import/no-unresolved': 0,
 
     // typescript
     '@typescript-eslint/consistent-type-definitions': [2, 'interface'],

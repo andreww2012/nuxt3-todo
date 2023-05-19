@@ -5,6 +5,10 @@ const defaultTheme = require('tailwindcss/defaultTheme');
 module.exports = {
   theme: {
     extend: {
+      screens: {
+        md: '736px',
+      },
+
       colors: {
         primary: {
           DEFAULT: '#4EA8DE',
