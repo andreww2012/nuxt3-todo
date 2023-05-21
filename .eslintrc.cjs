@@ -13,6 +13,9 @@ module.exports = {
     ecmaVersion: 2022,
     sourceType: 'module',
     extraFileExtensions: ['.vue'],
+    ecmaFeatures: {
+      jsx: true,
+    },
   },
 
   plugins: ['@typescript-eslint', 'optimize-regex', 'sonarjs', 'unicorn', 'require-extensions'],

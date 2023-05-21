@@ -10,6 +10,7 @@ export const Task = z.object({
 });
 
 export const GetAllTasksOutput = Task.array();
+export const GetTaskOutput = Task;
 export const MarkTaskAsCompletedOutput = Task;
 export const DeleteTaskOutput = Task;
 export const CreateTaskOutput = Task;

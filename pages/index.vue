@@ -29,18 +29,22 @@
 </template>
 
 <script setup lang="ts">
-import {computed, toRefs, useAsyncData} from '#imports';
+import {computed, toRefs, useAsyncData, useSeoMeta} from '#imports';
 import CreateOrEditTask from '~/components/create-or-edit-task.vue';
 import TheTask from '~/components/the-task.vue';
 import {useModal} from '~/composables/useModal';
 import {useTaskStore} from '~/stores/task.store';
 import PlusIcon from '~icons/_/plus.svg';
 
-const store = useTaskStore();
+useSeoMeta({
+  title: 'Tasks list',
+});
 
-await useAsyncData('user', () => store.getAllTasks());
+const taskStore = useTaskStore();
 
-const {tasks} = toRefs(store);
+await useAsyncData(() => taskStore.fetchAllTasks());
+
+const {tasks} = toRefs(taskStore);
 
 const allTasksCount = computed<number>(() => tasks.value.length);
 const completedTasksCount = computed<number>(

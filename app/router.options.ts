@@ -8,5 +8,10 @@ export default <RouterConfig>{
       path: '/',
       component: () => import('~/pages/index.vue').then((r) => r.default || r),
     },
+    {
+      name: 'task',
+      path: '/task/:taskId',
+      component: () => import('~/pages/task.vue').then((r) => r.default || r),
+    },
   ],
 };

@@ -6,6 +6,7 @@ import {
   DeleteTaskOutput,
   EditTaskOutput,
   GetAllTasksOutput,
+  GetTaskOutput,
   MarkTaskAsCompletedOutput,
 } from './schemas.js';
 
@@ -15,6 +16,9 @@ const BASE_URL = 'https://646790f9ba7110b663bcb0d4.mockapi.io';
 const fetchWithZod = createZodFetcher();
 
 export const getAllTasks = () => fetchWithZod(GetAllTasksOutput, `${BASE_URL}/todos`);
+
+export const getTaskById = (taskId: string) =>
+  fetchWithZod(GetTaskOutput, `${BASE_URL}/todos/${taskId}`);
 
 export const markTaskAsCompleted = async (taskId: string, completed = true) => {
   const result = await fetch(`${BASE_URL}/todos/${taskId}`, {
