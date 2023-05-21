@@ -15,6 +15,9 @@ module.exports = {
           dark: '#1E6F9F',
         },
         secondary: '#5E60CE',
+        danger: {
+          DEFAULT: '#E25858',
+        },
       },
 
       fontFamily: {

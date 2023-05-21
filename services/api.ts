@@ -1,7 +1,13 @@
 // import {z} from 'zod';
 import {createZodFetcher} from 'zod-fetch';
-import type {Task} from '~/types';
-import {DeleteTaskOutput, GetAllTasksOutput, MarkTaskAsCompletedOutput} from './schemas.js';
+import type {Task, TaskData} from '~/types';
+import {
+  CreateTaskOutput,
+  DeleteTaskOutput,
+  EditTaskOutput,
+  GetAllTasksOutput,
+  MarkTaskAsCompletedOutput,
+} from './schemas.js';
 
 // TODO env
 const BASE_URL = 'https://646790f9ba7110b663bcb0d4.mockapi.io';
@@ -30,6 +36,34 @@ export const deleteTask = async (taskId: string) => {
   });
   if (result.ok) {
     return DeleteTaskOutput.parse(await result.json());
+  }
+  return null;
+};
+
+export const createTask = async (task: TaskData) => {
+  const result = await fetch(`${BASE_URL}/todos`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(task),
+  });
+  if (result.ok) {
+    return CreateTaskOutput.parse(await result.json());
+  }
+  return null;
+};
+
+export const editTask = async (taskId: string, task: TaskData) => {
+  const result = await fetch(`${BASE_URL}/todos/${taskId}`, {
+    method: 'PUT',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(task),
+  });
+  if (result.ok) {
+    return EditTaskOutput.parse(await result.json());
   }
   return null;
 };

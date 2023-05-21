@@ -12,3 +12,5 @@ export const Task = z.object({
 export const GetAllTasksOutput = Task.array();
 export const MarkTaskAsCompletedOutput = Task;
 export const DeleteTaskOutput = Task;
+export const CreateTaskOutput = Task;
+export const EditTaskOutput = Task;

@@ -1,0 +1,44 @@
+
+@import '@vuepic/vue-datepicker/dist/main.css';
+
+.date-picker {
+  & .dp__theme_light,
+  & .dp__theme_dark {
+    --dp-menu-border-color: transparent;
+    --dp-primary-color: theme(colors.primary.DEFAULT);
+    --dp-secondary-color: theme(colors.neutral.600);
+
+    --dp-text-color: theme(colors.neutral.400);
+    --dp-background-color: theme(colors.neutral.900);
+
+    --dp-hover-color: theme(colors.primary.DEFAULT);
+    --dp-hover-text-color: theme(colors.white);
+  }
+
+  & .dp__btn,
+  & .dp__inner_nav,
+  & .dp__button {
+    @apply text-neutral-400 hover:bg-inherit hover:text-white;
+  }
+
+  & .dp__calendar_header_separator {
+    @apply hidden;
+  }
+
+  & .dp__cell_inner {
+    @apply rounded-full;
+
+    &.dp__active_date {
+      @apply bg-secondary;
+    }
+  }
+
+  & .dp__arrow_top,
+  & .dp__arrow_bottom {
+    @apply hidden;
+  }
+
+  & .dp__action_extra {
+    @apply pb-2.5;
+  }
+}

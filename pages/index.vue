@@ -2,6 +2,7 @@
   <div class="-translate-y-1/2">
     <button
       class="flex w-full items-center justify-center gap-2 rounded-lg border-none bg-primary-dark p-4 font-bold text-neutral-50 duration-150 hover:bg-primary active:translate-y-0.5"
+      @click="openNewTaskModal()"
     >
       <span class="pb-0.5 leading-4">Создать</span>
       <plus-icon class="w-4"></plus-icon>
@@ -29,7 +30,9 @@
 
 <script setup lang="ts">
 import {computed, toRefs, useAsyncData} from '#imports';
+import CreateOrEditTask from '~/components/create-or-edit-task.vue';
 import TheTask from '~/components/the-task.vue';
+import {useModal} from '~/composables/useModal';
 import {useTaskStore} from '~/stores/task.store';
 import PlusIcon from '~icons/_/plus.svg';
 
@@ -42,6 +45,19 @@ const {tasks} = toRefs(store);
 const allTasksCount = computed<number>(() => tasks.value.length);
 const completedTasksCount = computed<number>(
   () => tasks.value.filter((task) => task.completed).length,
+);
+
+const {open: openNewTaskModal, close: closeNewTaskModal} = useModal(
+  {component: CreateOrEditTask},
+  {
+    onSuccess: () => closeNewTaskModal(),
+  },
+  {
+    title: 'Создать задачу',
+    modalOptions: {
+      clickToClose: false,
+    },
+  },
 );
 </script>
 

@@ -5,3 +5,4 @@ import {Task} from '~/services/schemas';
 export type {PropType} from 'vue';
 
 export type Task = z.infer<typeof Task>;
+export type TaskData = Omit<Task, 'id' | 'createdAt'>;

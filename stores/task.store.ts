@@ -1,7 +1,7 @@
 import {defineStore} from 'pinia';
 import {ref} from '#imports';
 import * as API from '~/services/api';
-import type {Task} from '~/types';
+import type {Task, TaskData} from '~/types';
 
 export const useTaskStore = defineStore('task', () => {
   const tasks = ref<Task[]>([]);
@@ -12,18 +12,23 @@ export const useTaskStore = defineStore('task', () => {
     return response;
   };
 
+  const replaceTask = (task?: Task | null) => {
+    if (!task) {
+      return;
+    }
+    const taskPosition = tasks.value.findIndex((t) => t.id === task.id);
+    if (taskPosition !== -1) {
+      tasks.value.splice(taskPosition, 1, task);
+    }
+  };
+
   const toggleMarkTaskAsCompleted = async (taskId: string) => {
     const task = tasks.value.find((t) => t.id === taskId);
     if (!task) {
       throw new Error('Task not found');
     }
     const updatedTask = await API.markTaskAsCompleted(taskId, !task.completed);
-    if (updatedTask) {
-      const taskPosition = tasks.value.findIndex((t) => t.id === taskId);
-      if (taskPosition !== -1) {
-        tasks.value.splice(taskPosition, 1, updatedTask);
-      }
-    }
+    replaceTask(updatedTask);
     return updatedTask;
   };
 
@@ -38,10 +43,26 @@ export const useTaskStore = defineStore('task', () => {
     return deletedTask;
   };
 
+  const createTask = async (task: TaskData) => {
+    const newTask = await API.createTask(task);
+    if (newTask) {
+      tasks.value.push(newTask);
+    }
+    return newTask;
+  };
+
+  const editTask = async (taskId: string, task: TaskData) => {
+    const updatedTask = await API.editTask(taskId, task);
+    replaceTask(updatedTask);
+    return updatedTask;
+  };
+
   return {
     tasks,
     getAllTasks,
     toggleMarkTaskAsCompleted,
     deleteTask,
+    createTask,
+    editTask,
   };
 });
