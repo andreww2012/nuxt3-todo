@@ -1,5 +1,6 @@
 /* eslint-disable import/no-extraneous-dependencies */
 const defaultTheme = require('tailwindcss/defaultTheme');
+const plugin = require('tailwindcss/plugin');
 
 /** @type {import('tailwindcss').Config} */
 module.exports = {
@@ -25,4 +26,10 @@ module.exports = {
       },
     },
   },
+
+  plugins: [
+    plugin(({addUtilities}) => {
+      addUtilities({'.overflow-anywhere': {overflowWrap: 'anywhere'}});
+    }),
+  ],
 };

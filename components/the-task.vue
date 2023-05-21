@@ -24,32 +24,37 @@
       </button>
     </div>
     <div class="grow">
-      <div class="flex flex-col justify-between md:flex-row md:items-center">
-        <h2 class="text-xl font-bold md:text-3xl" :class="{completed: task.completed}">
+      <div class="flex flex-col justify-between gap-3 md:flex-row">
+        <h2
+          class="text-xl font-bold overflow-anywhere md:text-3xl"
+          :class="{completed: task.completed}"
+        >
           {{ task.title }}
         </h2>
-        <div class="flex items-center justify-between gap-5">
-          <div class="inline-grid grid-cols-[auto_auto] gap-x-0.5 text-xs text-neutral-500">
-            <span>Дата создания:</span>
-            <time class="text-primary" :datetime="createdDateIso" :title="createdDateIso">{{
-              createdDateFormatted
-            }}</time>
-            <span>Дата окончания:</span>
-            <time class="text-primary" :datetime="expirationDateIso" :title="expirationDateIso">{{
-              expirationDateFormatted
-            }}</time>
-          </div>
-          <div class="flex gap-3.5">
-            <button @click="deleteTask()">
-              <trash-icon class="w-3.5 text-neutral-500"></trash-icon>
-            </button>
-            <button v-if="!task.completed" @click="openEditTaskModal()">
-              <pen-note-icon class="w-3.5 text-neutral-500"></pen-note-icon>
-            </button>
+        <div>
+          <div class="flex items-center justify-between gap-5">
+            <div class="inline-grid grid-cols-[auto_auto] gap-x-0.5 text-xs text-neutral-500">
+              <span class="whitespace-nowrap">Дата создания:</span>
+              <time class="text-primary" :datetime="createdDateIso" :title="createdDateIso">{{
+                createdDateFormatted
+              }}</time>
+              <span class="whitespace-nowrap">Дата окончания:</span>
+              <time class="text-primary" :datetime="expirationDateIso" :title="expirationDateIso">{{
+                expirationDateFormatted
+              }}</time>
+            </div>
+            <div class="flex gap-3.5">
+              <button @click="deleteTask()">
+                <trash-icon class="w-3.5 text-neutral-500"></trash-icon>
+              </button>
+              <button v-if="!task.completed" @click="openEditTaskModal()">
+                <pen-note-icon class="w-3.5 text-neutral-500"></pen-note-icon>
+              </button>
+            </div>
           </div>
         </div>
       </div>
-      <p class="mt-2.5 text-sm md:text-base" :class="{completed: task.completed}">
+      <p class="mt-2.5 text-sm overflow-anywhere md:text-base" :class="{completed: task.completed}">
         {{ task.text }}
       </p>
     </div>
